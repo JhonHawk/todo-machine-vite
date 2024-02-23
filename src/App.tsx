@@ -1,45 +1,33 @@
-import { useState } from "react";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger
-} from "@/components/ui/alert-dialog";
-
+import { TodoCounter } from "./components/todo/TodoCounter";
+import { TodoSearch } from "./components/todo/TodoSearch";
+import { TodoList } from "./components/todo/TodoList";
+import { TodoItem } from "./components/todo/TodoItem";
+import { CreateTodoButton } from "./components/todo/CreateTodoButton";
 import "./App.css";
-import { Button } from "./components/ui/button";
-import { ModeToggle } from "./components/mode-toggle";
+
+const defaultTodos = [
+  {
+    text: "Bailar",
+    completed: false,
+  },
+  {
+    text: "reir",
+    completed: false,
+  },
+];
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <>
-      <div>
-        <ModeToggle />
-        <AlertDialog>
-          <AlertDialogTrigger>
-          <Button>Click me</Button>
-          </AlertDialogTrigger>
-          <AlertDialogContent>
-            <AlertDialogHeader>
-              <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-              <AlertDialogDescription>
-                This action cannot be undone. This will permanently delete your
-                account and remove your data from our servers.
-              </AlertDialogDescription>
-            </AlertDialogHeader>
-            <AlertDialogFooter>
-              <AlertDialogCancel>Cancel</AlertDialogCancel>
-              <AlertDialogAction>Continue</AlertDialogAction>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog>
+      <div className={"container"}>
+        <TodoCounter total={10} completed={5} />
+        <TodoSearch />
+        <TodoList>
+          {defaultTodos.map(todo => {
+            return <TodoItem key={todo.text} text={todo.text} />
+          })}
+        </TodoList>
+        <CreateTodoButton />
       </div>
     </>
   );
